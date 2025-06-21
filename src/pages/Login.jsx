@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import _ from "../lib/lib";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -31,12 +31,12 @@ const Login = () => {
       const user = userCredential.user;
 
       if (!user.emailVerified) {
-        _.infoToast("Please verify your email before logging in.");
+        alert("Please verify your email before logging in.");
         return;
       }
 
       _.SucessToast("Login successful!");
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       _.ErrorToast(error.message);
     }
@@ -50,7 +50,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+    <div className="w-full min-h-screen flex items-center justify-center bg-white">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4"
@@ -93,6 +93,9 @@ const Login = () => {
         >
           Login
         </button>
+        <Link to={'/signUp'} className="text-white">
+          Goto Sign UP
+        </Link>
       </form>
     </div>
   );
